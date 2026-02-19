@@ -8,12 +8,12 @@
       name: "Amaze",
       type: "debit",
       network: "Mastercard",
-      fx: "~1–2% markup",
+      fx: "At reference rate",
       atmFee: "2%",
       atmLimit: "None",
       overseasFee: "None",
       topupFee: "Free (PayNow etc.)",
-      rewards: "—",
+      rewards: "0.5 InstaPoints per S$1",
       multiCurrency: true,
       currencies: "SGD, USD, EUR, GBP, AUD, JPY, CAD, CHF, NZD, THB, MYR",
       referral: {
@@ -221,7 +221,6 @@
       card.fx,
       card.atmFee,
       card.atmLimit,
-      card.overseasFee,
       card.topupFee,
       card.rewards,
       card.currencies,
@@ -343,22 +342,12 @@
     );
   }
 
-  function overseasFeeCellContent(value, searchLower) {
-    if (value !== "None") return highlightSearch(value, searchLower);
-    return (
-      '<span class="fee-none" title="No overseas transaction fee" aria-label="No overseas transaction fee">' +
-      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
-      "</span>"
-    );
-  }
-
   const COLUMNS_CONFIG = [
     { id: "col-type", label: "Type" },
     { id: "col-network", label: "Network" },
     { id: "col-fx", label: "FX / Markup" },
     { id: "col-atm-fee", label: "ATM fee" },
     { id: "col-atm-limit", label: "ATM free limit" },
-    { id: "col-overseas-fee", label: "Overseas txn fee" },
     { id: "col-rewards", label: "Rewards" },
     { id: "col-referral", label: "Ref Code" },
     { id: "col-notes", label: "Notes" },
@@ -478,9 +467,6 @@
         '<td class="col-atm-limit">' +
         atmCellContent(card, card.atmLimit, searchLower, true) +
         "</td>" +
-        '<td class="col-overseas-fee">' +
-        overseasFeeCellContent(card.overseasFee, searchLower) +
-        "</td>" +
         '<td class="col-rewards">' +
         rewardsCellContent(card.rewards, searchLower) +
         "</td>" +
@@ -518,7 +504,6 @@
           ["FX / Markup", highlightSearch(card.fx, sl)],
           ["ATM fee", atmCellContent(card, card.atmFee, sl, false)],
           ["ATM free limit", atmCellContent(card, card.atmLimit, sl, true)],
-          ["Overseas txn fee", overseasFeeCellContent(card.overseasFee, sl)],
           ["Rewards", rewardsCellContent(card.rewards, sl)],
           ["Ref Code", referralCellContent(card)],
         ];

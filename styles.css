@@ -1149,7 +1149,6 @@ html:not([data-theme="light"]) .columns-dropdown {
   min-width: 100px;
 }
 
-.comparison-table .col-overseas-fee,
 .comparison-table .col-rewards {
   min-width: 140px;
 }
