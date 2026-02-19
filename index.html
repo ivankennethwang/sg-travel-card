@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singapore Travel Cards Comparison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-main">
+        <h1>Singapore Travel Cards</h1>
+        <p class="tagline">Compare multi-currency cards for your next trip</p>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="headerNav" title="Menu">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <nav class="header-nav" id="headerNav" aria-label="Main">
+          <a href="index.html" class="nav-link nav-link-cards active" aria-current="page" title="Comparison" aria-label="Comparison">
+            <svg class="nav-icon-cards" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="18" height="12" rx="2" fill="var(--bg)"/><rect x="3" y="6" width="18" height="12" rx="2" fill="var(--bg)"/><rect x="1" y="9" width="18" height="12" rx="2" fill="var(--bg)"/><rect x="2" y="10.5" width="16" height="2.5" rx="0.5" fill="currentColor"/><rect x="3" y="14" width="4" height="3" rx="0.6" fill="var(--bg)" stroke="currentColor"/></svg>
+            <span class="nav-link-text">Comparison</span>
+          </a>
+          <a href="sources/" class="nav-link nav-link-sources" title="Official sources" aria-label="Official sources">
+            <svg class="nav-icon-info" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <span class="nav-link-text">Official sources</span>
+          </a>
+        </nav>
+        <div class="theme-switcher" role="group" aria-label="Theme">
+          <button type="button" class="theme-toggle" id="themeToggle" title="Theme (cycle: Light → Dark → System)" aria-label="Theme (cycle Light, Dark, System)">
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+            </span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+            <span class="theme-icon theme-icon-system" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="filters" aria-label="Filter and view options">
+      <label class="filter-search-label-inline">
+        <input type="text" id="searchCards" placeholder="Search cards…" aria-label="Search cards" class="filter-search-input">
+      </label>
+      <div class="filters-actions">
+        <div class="filter-picker-wrap">
+          <button type="button" class="filter-toggle" id="filterToggle" aria-haspopup="true" aria-expanded="false" aria-label="Filter cards" title="Filter cards">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            <span>Filter</span>
+          </button>
+          <div class="filter-dropdown" id="filterDropdown" role="dialog" aria-label="Filter options">
+            <div class="filter-dropdown-section">
+              <span class="filter-group-label">Type</span>
+              <div class="filter-btn-group" role="group" aria-label="Card type">
+                <label class="filter-btn"><input type="checkbox" id="filterDebit" checked> Debit</label>
+                <label class="filter-btn"><input type="checkbox" id="filterCredit" checked> Credit</label>
+              </div>
+            </div>
+            <div class="filter-dropdown-section">
+              <span class="filter-group-label">Network</span>
+              <div class="filter-btn-group" role="group" aria-label="Card network">
+                <label class="filter-btn"><input type="checkbox" id="filterMastercard" checked> Mastercard</label>
+                <label class="filter-btn"><input type="checkbox" id="filterVisa" checked> Visa</label>
+              </div>
+            </div>
+            <div class="filter-dropdown-section">
+              <span class="filter-group-label">FX</span>
+              <div class="filter-btn-group filter-btn-group-single" role="group" aria-label="FX rate">
+                <label class="filter-btn"><input type="checkbox" id="filterRefRateOnly"> Reference rate only</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns-picker-wrap">
+          <button type="button" class="columns-toggle" id="columnsToggle" data-context="table" aria-haspopup="true" aria-expanded="false" aria-label="Show or hide columns" title="Show or hide columns">
+            <span class="columns-icon columns-icon-table" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="4" x2="6" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="18" y1="4" x2="18" y2="20"/></svg>
+            </span>
+            <span class="columns-icon columns-icon-details" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </span>
+            <span class="columns-toggle-label">Columns</span>
+          </button>
+          <div class="columns-dropdown" id="columnsDropdown" role="menu" aria-label="Toggle columns">
+            <div class="columns-dropdown-inner" id="columnsDropdownInner"><!-- Filled by JS --></div>
+          </div>
+        </div>
+        <button type="button" class="reset-btn" id="resetBtn" title="Reset to default settings" aria-label="Reset to default settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Reset</span>
+        </button>
+        <button type="button" class="view-toggle" id="viewToggle" data-view="table" title="Switch to table or card view" aria-label="Switch to table or card view">
+          <span class="view-icon view-icon-table" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          </span>
+          <span class="view-icon view-icon-cards" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </span>
+        </button>
+        <button type="button" class="layout-toggle" id="layoutToggle" data-layout="centered" title="Toggle layout: centered or full width" aria-label="Toggle layout: centered or full width">
+        <span class="layout-icon layout-icon-center" aria-hidden="true">
+          <svg class="layout-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" title="Expand to full width">
+            <g class="layout-arrow layout-arrow-left"><line x1="4" y1="6" x2="4" y2="18"/><path class="layout-arrowhead" fill="currentColor" stroke="none" d="M1 12L4 8L4 16Z"/></g>
+            <g class="layout-arrow layout-arrow-right"><line x1="20" y1="6" x2="20" y2="18"/><path class="layout-arrowhead" fill="currentColor" stroke="none" d="M23 12L20 8L20 16Z"/></g>
+          </svg>
+        </span>
+        <span class="layout-icon layout-icon-full" aria-hidden="true">
+          <svg class="layout-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" title="Collapse to center">
+            <g class="layout-arrow layout-arrow-left"><line x1="6" y1="6" x2="6" y2="18"/><path class="layout-arrowhead" fill="currentColor" stroke="none" d="M10 12L6 8L6 16Z"/></g>
+            <g class="layout-arrow layout-arrow-right"><line x1="18" y1="6" x2="18" y2="18"/><path class="layout-arrowhead" fill="currentColor" stroke="none" d="M14 12L18 8L18 16Z"/></g>
+          </svg>
+        </span>
+      </button>
+      </div>
+    </section>
+
+    <section class="table-wrap" id="tableWrap" role="region" aria-label="Comparison table">
+      <table class="comparison-table" id="comparisonTable">
+        <thead>
+          <tr>
+            <th class="col-card">Card</th>
+            <th class="col-type">Type</th>
+            <th class="col-network">Network</th>
+            <th class="col-fx">FX / Markup<sup><a href="#fn:fx" id="fnref:fx" class="fnref">2</a></sup></th>
+            <th class="col-atm-fee">ATM fee<sup><a href="#fn:atm" id="fnref:atm" class="fnref">1</a></sup></th>
+            <th class="col-atm-limit">ATM free limit</th>
+            <th class="col-overseas-fee">Overseas txn fee</th>
+            <th class="col-rewards">Rewards</th>
+            <th class="col-referral">Ref Code</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <section class="cards-wrap" id="cardsWrap" role="region" aria-label="Comparison cards" hidden>
+      <div class="cards-grid" id="cardsGrid"><!-- Populated by JS --></div>
+    </section>
+
+    <section class="disclaimer">
+      <p>Card fees and limits are indicative; check each provider for current terms.</p>
+      <p class="footnote" id="fn:atm"><sup>1</sup> Local ATM operator fees may apply to all cards.</p>
+      <p class="footnote" id="fn:fx"><sup>2</sup> Reference rate = at or close to mid-market/wholesale. Markup % is indicative only.</p>
+      <p class="footnote" id="fn:trust-debit"><sup>3</sup> Switch card to debit mode before withdrawing to avoid fees.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-text">
+        <p><strong>Not financial advice.</strong> Compare and choose based on your own needs.</p>
+        <p class="footer-updated">Page last updated: <time datetime="2025-02-18">18 February 2025</time>.</p>
+      </div>
+      <p class="footer-links">
+        <a href="https://github.com/ivankennethwang/sg-travel-card" target="_blank" rel="noopener noreferrer" title="View on GitHub" aria-label="View on GitHub">
+          <svg class="footer-icon footer-icon-github" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
