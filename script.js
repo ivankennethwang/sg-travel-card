@@ -890,9 +890,24 @@
     });
   }
 
+  const DESKTOP_BREAKPOINT_PX = 768;
+
+  function applyNavDesktopTooltips() {
+    const isDesktop = window.innerWidth > DESKTOP_BREAKPOINT_PX;
+    document.querySelectorAll("[data-tooltip-desktop]").forEach((el) => {
+      const text = el.getAttribute("data-tooltip-desktop");
+      el.title = isDesktop && text ? text : "";
+    });
+  }
+
+  function initNavDesktopTooltips() {
+    applyNavDesktopTooltips();
+    window.addEventListener("resize", applyNavDesktopTooltips);
+  }
+
   function initCustomTooltips() {
     const TOOLTIP_SELECTOR =
-      ".nav-link-sources, .atm-warning, .atm-x, .card-source-link, .icon-top-choice";
+      ".nav-link-cards, .nav-link-sources, .atm-warning, .atm-x, .card-source-link, .icon-top-choice";
     const SHOW_DELAY_MS = 200;
     const tooltipEl = document.createElement("div");
     tooltipEl.id = "customTooltip";
@@ -1023,6 +1038,7 @@
 
   initTheme();
   initDisclaimerModal();
+  initNavDesktopTooltips();
   initNavToggle();
   initLayout();
   initViewToggle();
