@@ -11,7 +11,6 @@
       fx: "At reference rate",
       atmFee: "2%",
       atmLimit: "None",
-      overseasFee: "None",
       topupFee: "Free (PayNow etc.)",
       rewards: "0.5 InstaPoints per S$1",
       multiCurrency: true,
@@ -29,7 +28,6 @@
       fx: "~1–2% markup",
       atmFee: "May apply",
       atmLimit: "Check T&Cs",
-      overseasFee: "None",
       topupFee: "N/A (credit)",
       rewards: "4 mpd",
       multiCurrency: false,
@@ -46,7 +44,6 @@
       fx: "At reference rate",
       atmFee: "N/A",
       atmLimit: "No ATM withdrawals",
-      overseasFee: "None",
       topupFee: "Free (bank transfer)",
       rewards: "2% GrabRewards",
       multiCurrency: false,
@@ -60,7 +57,6 @@
       fx: "At reference rate",
       atmFee: "N/A",
       atmLimit: "No overseas ATM",
-      overseasFee: "None",
       topupFee: "Free",
       rewards: "0.5% cashback",
       multiCurrency: false,
@@ -72,9 +68,8 @@
       type: "credit",
       network: "Visa",
       fx: "At reference rate",
-      atmFee: "May apply",
-      atmLimit: "Check T&Cs",
-      overseasFee: "None",
+      atmFee: "N/A",
+      atmLimit: "No overseas ATM",
       topupFee: "N/A (credit)",
       rewards: "1.5% cashback (S$1,500 eligible spend)",
       multiCurrency: false,
@@ -89,7 +84,6 @@
       fx: "1% on weekends",
       atmFee: "2% after free limit",
       atmLimit: "S$350/mo or 5 withdrawals",
-      overseasFee: "1% on weekends",
       topupFee: "Free from SG bank; card 0.3–2%",
       rewards: "—",
       multiCurrency: true,
@@ -108,7 +102,6 @@
       fx: "At reference rate",
       atmFee: "May apply",
       atmLimit: "Check T&Cs",
-      overseasFee: "None",
       topupFee: "N/A (credit)",
       rewards: "1% until 1 Mar 2026; 0.5% from 1 Mar 2026",
       multiCurrency: false,
@@ -122,7 +115,6 @@
       fx: "At reference rate",
       atmFee: "May apply",
       atmLimit: "Check T&Cs",
-      overseasFee: "None",
       topupFee: "N/A (credit)",
       rewards: "0.22% in Linkpoints",
       multiCurrency: false,
@@ -136,7 +128,6 @@
       fx: "At reference rate",
       atmFee: "None",
       atmLimit: "Unlimited",
-      overseasFee: "None",
       topupFee: "Free",
       rewards: "0.22% in Linkpoints",
       multiCurrency: false,
@@ -151,7 +142,6 @@
       fx: "~0.4%",
       atmFee: "1.75% after free limit",
       atmLimit: "S$350/mo free",
-      overseasFee: "Included in conversion",
       topupFee: "PayNow/bank free; card from 0.43%",
       rewards: "—",
       multiCurrency: true,
@@ -170,7 +160,6 @@
       fx: "At reference rate",
       atmFee: "2% after free limit",
       atmLimit: "S$400/mo free",
-      overseasFee: "None",
       topupFee: "Free debit/PayNow; 1.5% Visa credit",
       rewards: "—",
       multiCurrency: true,
@@ -307,7 +296,11 @@
       }
       return text;
     }
-    if (card.type === "credit" && !isLimitColumn) {
+    if (
+      card.type === "credit" &&
+      !isLimitColumn &&
+      card.id !== "maribank-credit"
+    ) {
       const title =
         "Allowed but not advisable. Cash advance fees apply; advise not to use for ATM.";
       return (
