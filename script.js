@@ -375,6 +375,16 @@
 
   const CARD_DETAIL_COL_IDS = COLUMNS_CONFIG.map((c) => c.id);
 
+  function getColumnLabelHtml(colId) {
+    const config = COLUMNS_CONFIG.find((c) => c.id === colId);
+    const label = config ? config.label : colId;
+    if (colId === "col-fx")
+      return 'FX / Markup<sup><a href="#fn:fx" class="fnref">2</a></sup>';
+    if (colId === "col-atm-fee")
+      return 'ATM fee<sup><a href="#fn:atm" class="fnref">1</a></sup>';
+    return escapeHtml(label);
+  }
+
   const COLUMNS_VISIBILITY_KEY = "sg-travel-columns";
 
   function getColumnVisibility() {
@@ -513,23 +523,23 @@
           : "";
         const allRows = [
           [
-            "Type",
+            CARD_DETAIL_COL_IDS[0],
             '<span class="badge ' +
               getTypeClass(card.type) +
               '">' +
               highlightSearch(card.type, sl) +
               "</span>",
           ],
-          ["Network", highlightSearch(card.network || "—", sl)],
-          ["FX / Markup", highlightSearch(card.fx, sl)],
-          ["ATM fee", atmCellContent(card, card.atmFee, sl, false)],
-          ["ATM free limit", atmCellContent(card, card.atmLimit, sl, true)],
-          ["Rewards", rewardsCellContent(card.rewards, sl)],
-          ["Ref Code", referralCellContent(card)],
+          [CARD_DETAIL_COL_IDS[1], highlightSearch(card.network || "—", sl)],
+          [CARD_DETAIL_COL_IDS[2], highlightSearch(card.fx, sl)],
+          [CARD_DETAIL_COL_IDS[3], atmCellContent(card, card.atmFee, sl, false)],
+          [CARD_DETAIL_COL_IDS[4], atmCellContent(card, card.atmLimit, sl, true)],
+          [CARD_DETAIL_COL_IDS[5], rewardsCellContent(card.rewards, sl)],
+          [CARD_DETAIL_COL_IDS[6], referralCellContent(card)],
         ];
         const rows = allRows
           .filter((_, i) => isColumnVisible(CARD_DETAIL_COL_IDS[i]))
-          .map(([term, value]) => [term, value]);
+          .map(([colId, value]) => [getColumnLabelHtml(colId), value]);
         return (
           '<article class="card-item' +
           (card.topChoice ? " card-item-top-choice" : "") +
@@ -553,8 +563,8 @@
             ? '<dl class="card-item-details">' +
               rows
                 .map(
-                  ([term, value]) =>
-                    "<dt>" + escapeHtml(term) + "</dt><dd>" + value + "</dd>",
+                  ([termHtml, value]) =>
+                    "<dt>" + termHtml + "</dt><dd>" + value + "</dd>",
                 )
                 .join("") +
               "</dl>"
