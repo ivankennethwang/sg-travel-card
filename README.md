@@ -1,6 +1,6 @@
 # Singapore Travel Cards Comparison
 
-A static site to compare Singapore multi-currency and travel cards: FX/markup, ATM fees and limits, overseas fees, and rewards. Built for Singapore users.
+A static site to compare Singapore travel cards: FX/markup, ATM fees and limits, overseas fees, and rewards. Built for Singapore users.
 
 ## Cards compared
 
@@ -20,12 +20,12 @@ A static site to compare Singapore multi-currency and travel cards: FX/markup, A
 
 ## Project structure
 
-| File / folder     | Purpose |
-|-------------------|--------|
-| `index.html`      | Comparison page: table, filters, nav, theme toggle |
-| `sources/index.html` | Official sources list (linked as `/sources`) |
-| `styles.css`      | Layout, light/dark/system theme, table and components |
-| `script.js`       | Card data, table render, filters, theme logic |
+| File / folder        | Purpose                                               |
+| -------------------- | ----------------------------------------------------- |
+| `index.html`         | Comparison page: table, filters, nav, theme toggle    |
+| `sources/index.html` | Official sources list (linked as `/sources`)          |
+| `styles.css`         | Layout, light/dark/system theme, table and components |
+| `script.js`          | Card data, table render, filters, theme logic         |
 
 ## Run locally
 
