@@ -1625,6 +1625,12 @@ html:not([data-theme="light"]) .columns-dropdown {
     flex-wrap: wrap;
   }
 
+  .filter-toggle-label,
+  .columns-toggle-label,
+  .reset-btn-label {
+    display: none;
+  }
+
   .comparison-table th,
   .comparison-table td {
     padding: 0.6rem 0.75rem;
