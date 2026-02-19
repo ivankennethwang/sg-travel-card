@@ -224,10 +224,16 @@
     if (!ref || !ref.url) return "—";
     const code = escapeHtml(ref.code);
     const url = escapeHtml(ref.url);
+    const cardId = escapeHtml(card.id);
+    const cardName = escapeHtml(card.name);
     return (
       '<a href="' +
       url +
-      '" target="_blank" rel="noopener noreferrer" class="referral-link">' +
+      '" target="_blank" rel="noopener noreferrer" class="referral-link" data-card-id="' +
+      cardId +
+      '" data-card-name="' +
+      cardName +
+      '">' +
       code +
       "</a>"
     );
@@ -1036,8 +1042,73 @@
     acceptBtn.addEventListener("click", dismiss);
   }
 
+  function initFooterScrollHide() {
+    const footer = document.querySelector(".site-footer");
+    if (!footer) return;
+    const threshold = 60;
+    let lastScrollY = window.scrollY || 0;
+    let ticking = false;
+
+    function updateFooter() {
+      const scrollY = window.scrollY || 0;
+      if (scrollY > lastScrollY && scrollY > threshold) {
+        footer.classList.add("footer-hidden");
+      } else {
+        footer.classList.remove("footer-hidden");
+      }
+      lastScrollY = scrollY;
+      ticking = false;
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(updateFooter);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+  }
+
+  function initHeaderScrollHide() {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+    const threshold = 60;
+    let lastScrollY = window.scrollY || 0;
+    let ticking = false;
+
+    function updateHeader() {
+      const scrollY = window.scrollY || 0;
+      const navOpen = header.classList.contains("nav-open");
+      if (navOpen) {
+        header.classList.remove("header-hidden");
+      } else if (scrollY > lastScrollY && scrollY > threshold) {
+        header.classList.add("header-hidden");
+      } else {
+        header.classList.remove("header-hidden");
+      }
+      lastScrollY = scrollY;
+      ticking = false;
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(updateHeader);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+  }
+
   initTheme();
   initDisclaimerModal();
+  initHeaderScrollHide();
+  initFooterScrollHide();
   initNavDesktopTooltips();
   initNavToggle();
   initLayout();
@@ -1051,5 +1122,20 @@
     initColumnsPicker();
     initFilterPicker();
     initReset();
+    initReferralTracking();
+  }
+
+  function initReferralTracking() {
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest("a.referral-link");
+      if (!link) return;
+      if (typeof gtag !== "function") return;
+      gtag("event", "referral_click", {
+        event_category: "engagement",
+        card_id: link.getAttribute("data-card-id") || "",
+        card_name: link.getAttribute("data-card-name") || "",
+        link_url: link.getAttribute("href") || "",
+      });
+    });
   }
 })();
