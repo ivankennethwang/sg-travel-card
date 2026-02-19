@@ -237,6 +237,10 @@
       copyTitle +
       '" data-ref-code="' +
       codeAttr +
+      '" data-card-id="' +
+      cardId +
+      '" data-card-name="' +
+      cardName +
       '">' +
       copySvg +
       "</button>";
@@ -1170,6 +1174,13 @@
       navigator.clipboard
         .writeText(code)
         .then(() => {
+          if (typeof gtag === "function") {
+            gtag("event", "referral_copy", {
+              event_category: "engagement",
+              card_id: btn.getAttribute("data-card-id") || "",
+              card_name: btn.getAttribute("data-card-name") || "",
+            });
+          }
           showCopyToast();
           btn.classList.add("copied");
           btn.setAttribute("aria-label", "Copied!");
