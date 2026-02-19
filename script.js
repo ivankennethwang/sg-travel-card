@@ -1021,7 +1021,30 @@
     });
   }
 
+  const DISCLAIMER_STORAGE_KEY = "sg-travel-card-disclaimer-accepted";
+
+  function initDisclaimerModal() {
+    const modal = document.getElementById("disclaimerModal");
+    const acceptBtn = document.getElementById("disclaimerModalAccept");
+    if (!modal || !acceptBtn) return;
+
+    if (localStorage.getItem(DISCLAIMER_STORAGE_KEY) === "true") {
+      modal.hidden = true;
+      return;
+    }
+
+    modal.hidden = false;
+
+    function dismiss() {
+      localStorage.setItem(DISCLAIMER_STORAGE_KEY, "true");
+      modal.hidden = true;
+    }
+
+    acceptBtn.addEventListener("click", dismiss);
+  }
+
   initTheme();
+  initDisclaimerModal();
   initNavToggle();
   initLayout();
   initViewToggle();
