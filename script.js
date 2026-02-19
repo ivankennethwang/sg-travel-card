@@ -148,7 +148,7 @@
       currencies:
         "AUD, CAD, CHF, CZK, DKK, EUR, GBP, HUF, JPY, NOK, NZD, PLN, RON, SEK, SGD, TRY, USD",
       referral: {
-        code: "ivanw85",
+        code: "ihpc/ivanw85",
         url: "https://wise.com/invite/ihpc/ivanw85",
       },
     },
@@ -165,7 +165,7 @@
       multiCurrency: true,
       currencies: "SGD, USD, EUR, GBP, JPY, HKD, AUD, NZD, CHF, SEK, MYR, THB",
       referral: {
-        code: "t49qvch4",
+        code: "3xWB/t49qvch4",
         url: "https://youtrip.onelink.me/3xWB/t49qvch4",
       },
     },
@@ -223,10 +223,25 @@
     const ref = card.referral;
     if (!ref || !ref.url) return "—";
     const code = escapeHtml(ref.code);
+    const codeAttr = ref.code.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
     const url = escapeHtml(ref.url);
     const cardId = escapeHtml(card.id);
     const cardName = escapeHtml(card.name);
+    const copyTitle = "Copy referral code";
+    const copySvg =
+      '<svg class="copy-ref-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    const copyBtn =
+      '<button type="button" class="copy-ref-btn" title="' +
+      copyTitle +
+      '" aria-label="' +
+      copyTitle +
+      '" data-ref-code="' +
+      codeAttr +
+      '">' +
+      copySvg +
+      "</button>";
     return (
+      '<span class="ref-code-cell">' +
       '<a href="' +
       url +
       '" target="_blank" rel="noopener noreferrer" class="referral-link" data-card-id="' +
@@ -235,7 +250,9 @@
       cardName +
       '">' +
       code +
-      "</a>"
+      "</a>" +
+      copyBtn +
+      "</span>"
     );
   }
 
@@ -1123,6 +1140,51 @@
     initFilterPicker();
     initReset();
     initReferralTracking();
+    initCopyRefCode();
+  }
+
+  function showCopyToast() {
+    const toast = document.getElementById("copyToast");
+    if (!toast) return;
+    toast.removeAttribute("hidden");
+    toast.textContent = "Copied to clipboard";
+    toast.classList.add("visible");
+    clearTimeout(toast._hideTimer);
+    toast._hideTimer = setTimeout(() => {
+      toast.classList.remove("visible");
+      setTimeout(() => toast.setAttribute("hidden", ""), 300);
+    }, 2000);
+  }
+
+  const COPY_ICON_SVG =
+    '<svg class="copy-ref-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  const CHECK_ICON_SVG =
+    '<svg class="copy-ref-icon copy-ref-icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  function initCopyRefCode() {
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button.copy-ref-btn");
+      if (!btn) return;
+      const code = btn.getAttribute("data-ref-code");
+      if (!code) return;
+      navigator.clipboard
+        .writeText(code)
+        .then(() => {
+          showCopyToast();
+          btn.classList.add("copied");
+          btn.setAttribute("aria-label", "Copied!");
+          const icon = btn.querySelector(".copy-ref-icon");
+          if (icon) icon.outerHTML = CHECK_ICON_SVG;
+          clearTimeout(btn._revertTimer);
+          btn._revertTimer = setTimeout(() => {
+            btn.classList.remove("copied");
+            btn.setAttribute("aria-label", "Copy referral code");
+            const currentIcon = btn.querySelector(".copy-ref-icon");
+            if (currentIcon) currentIcon.outerHTML = COPY_ICON_SVG;
+          }, 1500);
+        })
+        .catch(() => {});
+    });
   }
 
   function initReferralTracking() {
