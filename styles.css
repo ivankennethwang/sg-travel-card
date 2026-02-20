@@ -1625,6 +1625,10 @@ html:not([data-theme="light"]) .columns-dropdown {
     flex-wrap: wrap;
   }
 
+  .layout-toggle {
+    display: none;
+  }
+
   .filter-toggle-label,
   .columns-toggle-label,
   .reset-btn-label {
