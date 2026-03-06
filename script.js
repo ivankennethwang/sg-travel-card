@@ -140,8 +140,8 @@
       type: "debit",
       network: "Visa",
       fx: "~0.4%",
-      atmFee: "1.75% after free limit",
-      atmLimit: "S$350/mo free",
+      atmFee: "1.75% + S$1.50 until 1 May 2026; 1.75% from 1 May 2026",
+      atmLimit: "S$350/mo until 1 May 2026; S$100/mo from 1 May 2026",
       topupFee: "PayNow/bank free; card from 0.43%",
       rewards: "—",
       multiCurrency: true,
@@ -532,8 +532,14 @@
           ],
           [CARD_DETAIL_COL_IDS[1], highlightSearch(card.network || "—", sl)],
           [CARD_DETAIL_COL_IDS[2], highlightSearch(card.fx, sl)],
-          [CARD_DETAIL_COL_IDS[3], atmCellContent(card, card.atmFee, sl, false)],
-          [CARD_DETAIL_COL_IDS[4], atmCellContent(card, card.atmLimit, sl, true)],
+          [
+            CARD_DETAIL_COL_IDS[3],
+            atmCellContent(card, card.atmFee, sl, false),
+          ],
+          [
+            CARD_DETAIL_COL_IDS[4],
+            atmCellContent(card, card.atmLimit, sl, true),
+          ],
           [CARD_DETAIL_COL_IDS[5], rewardsCellContent(card.rewards, sl)],
           [CARD_DETAIL_COL_IDS[6], referralCellContent(card)],
         ];
